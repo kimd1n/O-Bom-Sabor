@@ -1,0 +1,154 @@
+  :root {
+    --verde: #F2811D;
+    --verde-escuro: #C4650F;
+    --verde-claro: #FDECDA;
+    --amarelo: #EF9F27;
+    --amarelo-claro: #FAEEDA;
+    --vermelho: #E24B4A;
+    --vermelho-claro: #FCEBEB;
+    --roxo: #5B1F73;
+    --cinza-bg: #FBF6EF;
+    --cinza-card: #FFFFFF;
+    --cinza-borda: #F0DCC0;
+    --cinza-texto: #6B6A66;
+    --preto: #1A1A18;
+    --fonte: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { overflow-x: hidden; max-width: 100%; }
+  body { background: var(--cinza-bg); font-family: var(--fonte); color: var(--preto); min-height: 100vh; }
+
+  header {
+    background: var(--roxo);
+    padding: 12px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header-marca { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .header-marca img { height: 56px; width: auto; display: block; flex-shrink: 0; }
+  header h1 { color: #fff; font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+  header span { color: rgba(255,255,255,0.65); font-size: 13px; }
+  #sync-btn:hover, #load-btn:hover { background: rgba(255,255,255,0.22) !important; }
+  #sync-btn:active, #load-btn:active { transform: translateY(1px); }
+  #sync-btn.sincronizando, #load-btn.sincronizando { opacity: 0.7; cursor: wait; }
+
+  @media (max-width: 640px) {
+    header { padding: 12px 16px; }
+    .header-marca img { height: 40px; }
+    header h1 { font-size: 17px; }
+    header span { font-size: 11px; }
+    header > div:last-child { width: 100%; flex-wrap: wrap; gap: 8px !important; }
+    #sync-btn, #load-btn { padding: 8px 10px !important; font-size: 12px !important; flex: 1 1 auto; justify-content: center; }
+    #sync-badge { max-width: none !important; width: 100%; text-align: left !important; }
+    .tabs { padding: 0 12px; }
+    #conflito-banner { padding: 10px 16px !important; flex-wrap: wrap; }
+  }
+
+  .tabs {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid var(--cinza-borda);
+    padding: 0 32px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: 0 0 auto; white-space: nowrap; padding: 14px 20px; font-size: 14px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--cinza-texto); transition: all 0.15s; user-select: none; }
+  .tab.ativo { color: var(--verde); border-bottom-color: var(--verde); font-weight: 500; }
+  .tab:hover:not(.ativo) { color: var(--preto); }
+
+  main { max-width: 900px; margin: 0 auto; padding: 28px 20px; }
+  .pagina { display: none; }
+  .pagina.ativo { display: block; }
+
+  .card { background: var(--cinza-card); border: 1px solid var(--cinza-borda); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+  .card-titulo { font-size: 13px; font-weight: 500; color: var(--cinza-texto); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+  .campo { display: flex; flex-direction: column; gap: 6px; }
+  .campo label { font-size: 13px; color: var(--cinza-texto); }
+  .campo input, .campo select {
+    padding: 9px 12px; border: 1px solid var(--cinza-borda); border-radius: 8px;
+    font-size: 15px; font-family: var(--fonte); color: var(--preto);
+    background: #fff; transition: border-color 0.15s;
+  }
+  .campo input:focus, .campo select:focus { outline: none; border-color: var(--verde); }
+  .toggle-row { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
+  .toggle-row label { font-size: 14px; cursor: pointer; }
+  .toggle-row input[type=checkbox] { width: 17px; height: 17px; accent-color: var(--verde); cursor: pointer; }
+  #frete-wrap { display: none; align-items: center; gap: 8px; }
+  #frete-wrap.vis { display: flex; }
+  #frete-wrap input { width: 100px; }
+
+  .btn { display: inline-block; padding: 11px 24px; border-radius: 8px; border: none; cursor: pointer; font-family: var(--fonte); font-size: 15px; font-weight: 500; transition: background 0.15s; }
+  .btn-primario { background: var(--verde); color: #fff; width: 100%; margin-top: 8px; }
+  .btn-primario:hover { background: var(--verde-escuro); }
+  .btn-secundario { background: transparent; color: var(--cinza-texto); border: 1px solid var(--cinza-borda); font-size: 13px; padding: 7px 14px; }
+  .btn-secundario:hover { background: var(--cinza-bg); }
+  .btn-perigo { background: transparent; color: var(--vermelho); border: 1px solid #F7C1C1; font-size: 13px; padding: 7px 14px; }
+  .btn-perigo:hover { background: var(--vermelho-claro); }
+
+  #resultado { display: none; }
+  #resultado.vis { display: block; }
+
+  /* 3 métricas agora: cliente paga, descontos totais, repasse líquido */
+  .metricas { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .metrica { background: var(--cinza-bg); border-radius: 8px; padding: 12px 14px; }
+  .metrica .m-label { font-size: 12px; color: var(--cinza-texto); margin-bottom: 4px; }
+  .metrica .m-valor { font-size: 19px; font-weight: 600; color: var(--preto); }
+  .metrica.destaque-verde .m-valor { color: var(--verde-escuro); }
+  .metrica.destaque-vermelho .m-valor { color: var(--vermelho); }
+
+  /* sub-linha dentro da métrica de desconto */
+  .m-sub { font-size: 11px; color: var(--cinza-texto); margin-top: 4px; line-height: 1.5; }
+
+  .linha-fechamento { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--cinza-borda); font-size: 14px; }
+  .linha-fechamento:last-child { border-bottom: none; font-weight: 600; font-size: 15px; }
+  .linha-fechamento span:last-child { font-weight: 500; }
+
+  .barra-wrap { margin-top: 14px; }
+  .barra-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--cinza-texto); margin-bottom: 6px; }
+  .barra-track { height: 10px; background: var(--cinza-borda); border-radius: 5px; overflow: hidden; }
+  .barra-fill { height: 100%; border-radius: 5px; transition: width 0.4s; }
+
+  .tabela-wrap { overflow-x: auto; }
+  .scroll-topo { overflow-x: auto; overflow-y: hidden; height: 16px; }
+  .scroll-topo > div { height: 1px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; padding: 10px 12px; font-weight: 500; font-size: 12px; color: var(--cinza-texto); border-bottom: 1px solid var(--cinza-borda); white-space: nowrap; }
+  td { padding: 11px 12px; border-bottom: 1px solid var(--cinza-borda); color: var(--preto); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--cinza-bg); }
+  .badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 20px; }
+  .badge.verde { background: var(--verde-claro); color: #0A5C42; }
+  .badge.amarelo { background: var(--amarelo-claro); color: #7A4A00; }
+  .badge.vermelho { background: var(--vermelho-claro); color: #8C1F1F; }
+
+  .vazio { text-align: center; padding: 40px 20px; color: var(--cinza-texto); font-size: 14px; }
+
+  .config-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--cinza-borda); }
+  .config-item:last-child { border-bottom: none; }
+  .config-desc h3 { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
+  .config-desc p { font-size: 13px; color: var(--cinza-texto); }
+  .config-item input[type=number] { width: 100px; text-align: right; padding: 8px 10px; border: 1px solid var(--cinza-borda); border-radius: 8px; font-size: 15px; font-family: var(--fonte); }
+  .config-item input:focus { outline: none; border-color: var(--verde); }
+
+  .resumo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+  .resumo-card { background: var(--cinza-bg); border-radius: 10px; padding: 16px; }
+  .resumo-card .r-label { font-size: 12px; color: var(--cinza-texto); margin-bottom: 6px; }
+  .resumo-card .r-valor { font-size: 26px; font-weight: 600; }
+
+  @media (max-width: 600px) {
+    header { padding: 14px 16px; }
+    main { padding: 16px 12px; }
+    .grid-2, .grid-3, .grid-4, .metricas { grid-template-columns: 1fr; }
+    .resumo-grid { grid-template-columns: 1fr; }
+    .tabs { padding: 0 8px; }
+    .tab { padding: 12px 14px; font-size: 13px; }
+  }

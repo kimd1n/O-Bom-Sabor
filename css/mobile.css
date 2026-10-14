@@ -1,0 +1,25 @@
+/* Revisão geral de interface/mobile */
+:root{--safe-bottom:env(safe-area-inset-bottom,0px)}
+button,.btn,input,select,textarea{max-width:100%}
+button,.btn{touch-action:manipulation}
+input,select,textarea{font-size:16px}
+.tabela-wrap{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{max-width:100%}
+#modal-ficha-detalhes-overlay,#modal-apagar-overlay,#modal-editar-item-overlay,#modal-backups-nuvem-overlay{box-sizing:border-box}
+#modal-apagar-overlay,#modal-editar-item-overlay,#modal-backups-nuvem-overlay{z-index:99990!important;background:rgba(26,26,24,.68)!important}
+#modal-apagar-overlay>div,#modal-editar-item-overlay>div,#modal-backups-nuvem-overlay>div{background:#fff!important;position:relative;z-index:99991;max-height:85vh;overflow:auto}
+@media(max-width:700px){
+ body{padding-bottom:calc(18px + var(--safe-bottom))}
+ .container,.conteudo,.card,.painel{max-width:100%!important}
+ .grid-2,.grid-3,.grid-4,.cards,.resumo-grid{grid-template-columns:1fr!important}
+ .acoes,.botoes,.btn-group{flex-wrap:wrap!important}
+ .acoes .btn,.botoes .btn{min-height:44px}
+ #modal-ficha-detalhes-overlay,#modal-apagar-overlay,#modal-editar-item-overlay,#modal-backups-nuvem-overlay{padding:10px!important;align-items:flex-end!important}
+ #modal-ficha-detalhes-overlay>div,#modal-apagar-overlay>div,#modal-editar-item-overlay>div,#modal-backups-nuvem-overlay>div{width:100%!important;max-width:100%!important;max-height:92dvh!important;border-radius:18px 18px 10px 10px!important;padding:18px!important}
+ .tabela-wrap table{min-width:620px}
+}
+@media(max-width:420px){
+ body{font-size:14px}
+ h1{font-size:1.45rem} h2{font-size:1.2rem}
+ .btn,button{min-height:42px}
+}
