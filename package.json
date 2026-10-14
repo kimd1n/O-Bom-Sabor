@@ -1,0 +1,1 @@
+{ "name": "o-bom-sabor", "private": true, "version": "11.0.0", "scripts": { "test": "node --test" } }

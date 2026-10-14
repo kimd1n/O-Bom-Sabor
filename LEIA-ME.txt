@@ -1,0 +1,72 @@
+O BOM SABOR v11 — contas separadas em calculos.js (+ v10: nuvem no Drive e PWA)
+
+COMO USAR (aba Importar iFood)
+1) Importe o relatório de CARDÁPIO do iFood (abas Itens/Complementos/Funil Loja).
+   O app liga cada item ao produto do catálogo, calcula o custo real do que foi vendido
+   e salva o "custo por pedido". Confira os itens em vermelho e escolha o produto certo.
+   Faça de novo quando o cardápio ou os custos mudarem.
+2) Importe o relatório de PEDIDOS. O custo de cada dia passa a ser pedidos x custo por pedido real.
+   A tabela mostra: sobra (repasse - custo) e lucro após despesas, com linha de TOTAL.
+
+PUBLICAR NO CLOUDFLARE
+Envie index.html, calculos.js, manifest.webmanifest, sw.js, icon-192x192.png e icon-512x512.png (todos na mesma pasta).
+Não envie a pasta google-apps-script.
+
+PRODUTO SEM FICHA TÉCNICA (v7)
+Na aba Produtos, deixe a ficha em branco e digite o "Custo manual (R$)". O custo manual
+não atualiza sozinho: se mudar, edite o produto. Vale em Resumo, Sugestões de preço e no
+custo real do relatório de cardápio.
+
+NOVA NAVEGACAO (v9)
+As 10 abas viraram 5 seções, cada uma com suas telas logo abaixo:
+  Resumo  -> Painel
+  Vendas  -> Fechamentos | Importar iFood
+  Precos  -> Precificação | Produtos | Histórico | Simulações
+  Custos  -> Fichas Técnicas | Insumos
+  Ajustes -> Configurações
+O app lembra a última tela de cada seção. Nenhum cálculo foi alterado.
+Corrigido: a aba Importar iFood não ficava destacada ao ser aberta.
+
+
+REMOVIDA A 99FOOD
+Saíram a opção 99Food da calculadora e do Canal da venda, os preços/lucros 99Food em Produtos e Resumo,
+o botão "99 = iFood", os preços sugeridos 99Food, a Reserva 99Food das Configurações e a 99Food do
+relatório gerencial. Fechamentos antigos feitos como 99Food continuam no histórico, com o rótulo
+"99Food" nos totais por canal, para não perder dados. O Code.gs do Google não mudou.
+
+
+DICA DE PRECO IDEAL (v9.1)
+Na aba Produtos, passe o mouse (ou toque, no celular) no selo "Revisar preço" / "Meta atendida" para ver o
+preço ideal do iFood para bater a meta e quanto falta ou sobra em relação ao preço atual. Nenhum cálculo foi alterado.
+
+
+v10 — O QUE MUDOU
+1) Code.gs: dados e backups agora ficam no Google Drive (arquivo BomSabor_dados.json e pasta
+   BomSabor_backups, 20 backups). Antes ficavam em Script Properties, que têm limite pequeno (cerca de
+   9 KB por valor) e podiam parar de salvar com o crescimento do catálogo.
+   COMO ATUALIZAR: abra o projeto no Apps Script, cole o novo Code.gs, coloque o SEU token no lugar de
+   TROQUE-POR-UMA-SENHA..., depois Implantar > Gerenciar implantações > lápis > Versão: Nova versão > Implantar.
+   A URL /exec e o app não mudam. Autorize o acesso ao Drive quando o Google pedir.
+   Os dados e backups antigos são copiados sozinhos na primeira sincronização (e continuam nas Properties).
+2) manifest.webmanifest e sw.js agora fazem parte do pacote: o botão de instalar funciona e o app abre
+   offline. A biblioteca de Excel (SheetJS) fica em cache para importar relatórios sem internet depois do
+   primeiro uso. A sincronização com o Google nunca passa pelo cache.
+3) O index.html não foi alterado.
+
+
+v11 — O QUE MUDOU
+As contas de preço, margem, cenários (promoção x frete), preço mínimo para a meta, custo de ficha técnica,
+custo do produto e custo de insumo agora ficam no arquivo calculos.js, com 14 testes automáticos (node --test).
+O index.html chama essas funções. O resultado é o mesmo da v10: comparei o antigo e o novo com 30 mil
+combinações de valores e deu igual. A taxa 0% ainda cai em 26,2% na calculadora (como na v10); veja MIGRACAO.md.
+Não esqueça de enviar o calculos.js junto no Cloudflare.
+
+ROTEIRO DE CONFERÊNCIA (10 minutos, antes de publicar de verdade)
+1) Abra o app e a tela não pode ficar em branco nem mostrar erro. (F12 > Console: sem texto vermelho)
+2) Calculadora: preço 40, benefício 6, custo 12, taxa 26,2. Confira promoção e frete grátis nos dois cenários.
+3) Histórico: edite um produto salvo e veja se lucro e margem recalculam.
+4) Fichas Técnicas: abra uma ficha antiga e compare o custo com o que você tinha na v10.
+5) Insumos: edite o preço de um insumo e veja o "Custo real" na prévia.
+6) Produtos: confira o preço ideal e a dica ao passar o mouse no selo.
+7) Fechamentos e Resumo: os totais do dia devem bater com os da v10.
+Se algo não bater, volte para o zip da v10 e me diga qual passo falhou.
